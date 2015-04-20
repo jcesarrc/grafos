@@ -1,13 +1,11 @@
 
 package co.edu.poli.medgraph.algoritmo;
-
-import org.uweschmidt.dijkstravis.graph.algorithm.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.uweschmidt.dijkstravis.graph.IEdge;
-import org.uweschmidt.dijkstravis.graph.INode;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
 
 
 public class DijkstraStepChanges {

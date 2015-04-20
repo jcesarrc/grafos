@@ -19,13 +19,6 @@ public class MedGraph {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Graph<Integer, String> g = new SparseGraph<>();
-        g.addVertex((Integer)1);
-        g.addVertex((Integer)2);
-        g.addVertex((Integer)3); 
-        g.addEdge("Edge-A", 1, 2);
-        g.addEdge("Edge-B", 2, 3); 
-        System.out.println("The graph g = " + g.toString());
 
     }
     

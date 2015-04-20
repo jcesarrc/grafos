@@ -1,9 +1,8 @@
 
 package co.edu.poli.medgraph.algoritmo;
 
-import org.uweschmidt.dijkstravis.graph.algorithm.*;
-import org.uweschmidt.dijkstravis.graph.IGraph;
-import org.uweschmidt.dijkstravis.graph.INode;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
 
 public interface GraphAlgorithm<T> {
 	

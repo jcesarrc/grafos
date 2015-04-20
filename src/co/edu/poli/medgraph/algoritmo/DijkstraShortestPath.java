@@ -15,11 +15,11 @@ import java.util.Set;
 
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.set.ListOrderedSet;
-import org.uweschmidt.dijkstravis.graph.GraphChangeListener;
-import org.uweschmidt.dijkstravis.graph.GraphManager;
-import org.uweschmidt.dijkstravis.graph.IEdge;
-import org.uweschmidt.dijkstravis.graph.IGraph;
-import org.uweschmidt.dijkstravis.graph.INode;
+import co.edu.poli.medgraph.grafo.GraphChangeListener;
+import co.edu.poli.medgraph.grafo.GraphManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
 
 
 public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>, GraphChangeListener {

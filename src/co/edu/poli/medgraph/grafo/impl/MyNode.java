@@ -1,8 +1,8 @@
 
 package co.edu.poli.medgraph.grafo.impl;
 
-import org.uweschmidt.dijkstravis.graph.IEdge;
-import org.uweschmidt.dijkstravis.graph.INode;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
 
 public class MyNode implements INode {
 

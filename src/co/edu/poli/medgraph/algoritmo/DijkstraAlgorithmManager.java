@@ -1,7 +1,6 @@
 
 package co.edu.poli.medgraph.algoritmo;
 
-import org.uweschmidt.dijkstravis.graph.algorithm.*;
 import java.util.HashSet;
 import java.util.Set;
 
