@@ -1,24 +1,4 @@
-/*
- * Copyright (C) 2008, Uwe Schmidt 
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
- * Software is furnished to do so, subject to the following conditions: 
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software. 
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE. 
- */
+
 package co.edu.poli.medgraph.gui;
 
 import java.awt.Graphics;
@@ -47,6 +27,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
 import co.edu.poli.medgraph.gui.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
+import javafx.geometry.Orientation;
 
 
 @SuppressWarnings("serial")
@@ -57,7 +38,7 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 	private JScrollPane scrollPane;
 
 	public HelpPanel() {
-		super(Orientation.HORIZONTAL);
+		super();
 		setOpaque(false);
 		setCollapsed(true);
 		setName("main");		
@@ -119,13 +100,14 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 		final JXTaskPane tp = new JXTaskPane();
 		tp.setLayout(new MigLayout("insets -7"));
 		
-		tp.setExpanded(false);
+		/*tp.setExpanded(false);
 		
 		tp.addPropertyChangeListener(JXTaskPane.EXPANDED_CHANGED_KEY, new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				tp.setAnimated(!tp.isExpanded());
 			}
 		});
+                        */
 		
 		final JEditorPane html = new JEditorPane("text/html", null) {
 			@Override

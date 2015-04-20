@@ -1,24 +1,3 @@
-/*
- * Copyright (C) 2008, Uwe Schmidt 
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
- * Software is furnished to do so, subject to the following conditions: 
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software. 
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE. 
- */
 package co.edu.poli.medgraph.gui;
 
 import java.awt.BorderLayout;
@@ -45,7 +24,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Hashtable;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -78,14 +56,14 @@ import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.Task;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.JXTitledSeparator;
-import org.uweschmidt.dijkstravis.graph.GraphChangeListener;
-import org.uweschmidt.dijkstravis.graph.GraphManager;
-import org.uweschmidt.dijkstravis.graph.IGraph;
-import org.uweschmidt.dijkstravis.graph.INode;
-import org.uweschmidt.dijkstravis.graph.algorithm.AlgorithmProgressListener;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraAlgorithmManager;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraShortestPath;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraStepChanges;
+import co.edu.poli.medgraph.grafo.GraphChangeListener;
+import co.edu.poli.medgraph.grafo.GraphManager;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.algoritmo.AlgorithmProgressListener;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.algoritmo.DijkstraShortestPath;
+import co.edu.poli.medgraph.algoritmo.DijkstraStepChanges;
 import co.edu.poli.medgraph.gui.animation.AnimationHandler;
 import co.edu.poli.medgraph.gui.transformer.MyEdgeArrowTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyEdgePaintTransformer;
@@ -95,6 +73,7 @@ import co.edu.poli.medgraph.gui.transformer.MyNodeShapeTransformer;
 import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
 import co.edu.poli.medgraph.gui.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
+import java.util.Hashtable;
 
 
 @SuppressWarnings("serial")
@@ -156,9 +135,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 			}
 		});
 		
-		/*
-		 * LEGEND
-		 */		
+			
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "legend"), "span, growx");
 		final JPanel legendPanel = new JPanel(new MigLayout((DEBUG ? "debug, " : "") + "insets 0", "[left, center, left]"));
 		migPanel.add(legendPanel, "span");
@@ -185,7 +162,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "execSpeed"), "span, growx");
 		migPanel.add(SC.newComponent(JLabel.class, "timeIconLabel"), "left");
 		migPanel.add(delaySlider = SC.newComponent(JSlider.class, "delaySlider"), "pushx, growx, wrap");
-		final Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
+		final Hashtable<Integer, JLabel> labels = new Hashtable<>();
 		labels.put(r.getInteger("delaySlider.minimum"), minDelayLabel = new JLabel());
 		labels.put(r.getInteger("delaySlider.maximum"), maxDelayLabel = new JLabel());
 		delaySlider.setLabelTable(labels);

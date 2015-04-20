@@ -1,24 +1,3 @@
-/*
- * Copyright (C) 2008, Uwe Schmidt 
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
- * Software is furnished to do so, subject to the following conditions: 
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software. 
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE. 
- */
 package co.edu.poli.medgraph.gui.jung.mouse;
 
 import java.awt.Toolkit;
@@ -29,13 +8,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.apache.commons.collections15.Factory;
-import org.uweschmidt.dijkstravis.graph.IEdge;
-import org.uweschmidt.dijkstravis.graph.INode;
-import org.uweschmidt.dijkstravis.graph.algorithm.AlgorithmProgressListener;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraAlgorithmManager;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraStepChanges;
-import org.uweschmidt.dijkstravis.graph.jung.MyEdgeFactory;
-import org.uweschmidt.dijkstravis.graph.jung.MyNodeFactory;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.algoritmo.AlgorithmProgressListener;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.algoritmo.DijkstraStepChanges;
+import co.edu.poli.medgraph.grafo.impl.MyEdge;
+import co.edu.poli.medgraph.grafo.impl.MyEdgeFactory;
+import co.edu.poli.medgraph.grafo.impl.MyNode;
+import co.edu.poli.medgraph.grafo.impl.MyNodeFactory;
 import co.edu.poli.medgraph.gui.GraphPanel;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyEditingGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin;
@@ -62,11 +43,11 @@ import edu.uci.ics.jung.visualization.control.TranslatingGraphMousePlugin;
 public class MyGraphMouse extends PluggableGraphMouse implements AlgorithmProgressListener<DijkstraStepChanges> {
 
 	private VisualizationViewer<INode, IEdge> vv;
-	private Factory<INode> vertexFactory;
-	private Factory<IEdge> edgeFactory;
+	private Factory<MyNode> vertexFactory;
+	private Factory<MyEdge> edgeFactory;
 
 	private MyStartnodeGraphMousePlugin startNodePlugin;
-	private EditingGraphMousePlugin<INode, IEdge> editingPlugin;
+	private EditingGraphMousePlugin<MyNode, MyEdge> editingPlugin;
 	private ScalingGraphMousePlugin scalingPlugin;
 
 	private PickingGraphMousePlugin<INode, IEdge> pickingPlugin;
@@ -78,7 +59,7 @@ public class MyGraphMouse extends PluggableGraphMouse implements AlgorithmProgre
 	private MyInfoOverlayGraphMousePlugin infoPlugin;
 	private MyHighlighterGraphMousePlugin mouseOverHighlighter;
 
-	private MyEditingPopupGraphMousePlugin<INode, IEdge> popupEditingPlugin;
+	private MyEditingPopupGraphMousePlugin<MyNode, MyEdge> popupEditingPlugin;
 	
 	private GraphPanel gp;
 
@@ -111,7 +92,7 @@ public class MyGraphMouse extends PluggableGraphMouse implements AlgorithmProgre
 		scalingPlugin = new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 1 / 1.1f);
 		rotatingPlugin = new MyRotatingGraphMousePlugin(InputEvent.BUTTON3_MASK | MouseEvent.SHIFT_MASK);
 		translatingPlugin = new MyTranslatingGraphMousePlugin(InputEvent.BUTTON3_MASK);
-		popupEditingPlugin = new MyEditingPopupGraphMousePlugin<INode, IEdge>(null, vertexFactory, edgeFactory);
+		popupEditingPlugin = new MyEditingPopupGraphMousePlugin<MyNode, MyEdge>(null, vertexFactory, edgeFactory);
 		startNodePlugin = new MyStartnodeGraphMousePlugin();
 		editingPlugin = new MyEditingGraphMousePlugin(this, null, vertexFactory, edgeFactory);
 		mouseOverHighlighter = new MyHighlighterGraphMousePlugin();
@@ -143,8 +124,8 @@ public class MyGraphMouse extends PluggableGraphMouse implements AlgorithmProgre
 	}
 
 	public void setLayout(Layout<INode, IEdge> layout) {
-		editingPlugin.setLayout(layout);
-		popupEditingPlugin.setLayout(layout);
+		//editingPlugin.setLayout(layout);
+		//popupEditingPlugin.setLayout(layout);
 	}
 
 	public void stepChanged(int step, DijkstraStepChanges changes) {

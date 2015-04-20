@@ -1,24 +1,3 @@
-/*
- * Copyright (C) 2008, Uwe Schmidt 
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
- * Software is furnished to do so, subject to the following conditions: 
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software. 
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE. 
- */
 package co.edu.poli.medgraph.gui;
 
 import java.awt.BorderLayout;
@@ -38,18 +17,20 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.commons.collections15.Transformer;
 import org.jdesktop.application.Action;
-import org.uweschmidt.dijkstravis.graph.GraphChangeListener;
-import org.uweschmidt.dijkstravis.graph.GraphManager;
-import org.uweschmidt.dijkstravis.graph.IEdge;
-import org.uweschmidt.dijkstravis.graph.IGraph;
-import org.uweschmidt.dijkstravis.graph.INode;
-import org.uweschmidt.dijkstravis.graph.algorithm.AlgorithmProgressListener;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraAlgorithmManager;
-import org.uweschmidt.dijkstravis.graph.algorithm.DijkstraStepChanges;
-import org.uweschmidt.dijkstravis.graph.jung.MyEdgeFactory;
-import org.uweschmidt.dijkstravis.graph.jung.MyGraphFactory;
-import org.uweschmidt.dijkstravis.graph.jung.MyNodeFactory;
-import org.uweschmidt.dijkstravis.graph.jung.MyPseudoPlanarGraphGenerator;
+import co.edu.poli.medgraph.grafo.GraphChangeListener;
+import co.edu.poli.medgraph.grafo.GraphManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.algoritmo.AlgorithmProgressListener;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.algoritmo.DijkstraStepChanges;
+import co.edu.poli.medgraph.grafo.impl.MyEdge;
+import co.edu.poli.medgraph.grafo.impl.MyEdgeFactory;
+import co.edu.poli.medgraph.grafo.impl.MyGraphFactory;
+import co.edu.poli.medgraph.grafo.impl.MyNode;
+import co.edu.poli.medgraph.grafo.impl.MyNodeFactory;
+import co.edu.poli.medgraph.grafo.impl.MyPseudoPlanarGraphGenerator;
 import co.edu.poli.medgraph.gui.animation.AnimationHandler;
 import co.edu.poli.medgraph.gui.animation.renderer.MyAnimationEdgeRenderer;
 import co.edu.poli.medgraph.gui.animation.renderer.MyAnimationNodeRenderer;
@@ -282,39 +263,10 @@ public class GraphPanel extends JPanel implements GraphChangeListener, Algorithm
 		return sampleGraphMenu;
 	}
 	
-	private void randomGraph(int x, int y, double p, double a) {
-		if (!FileHandler.saveGraphToFile(graph, layout, isDirty())) return;
-		MyNodeFactory.getInstance().reset();
-		MyEdgeFactory.getInstance().reset();
-		final MyPseudoPlanarGraphGenerator<INode, IEdge> gen3 = new MyPseudoPlanarGraphGenerator<INode, IEdge>(MyGraphFactory.getInstance(), MyNodeFactory.getInstance(), MyEdgeFactory.getInstance());
-		final Graph<INode, IEdge> genGraph = gen3.generateGraph(x, y, p, a);
-		GraphManager.setGraphAndLayout((IGraph)genGraph, newLayout(new ISOMLayout<INode, IEdge>(genGraph)));
-		setGraphBackground(null);
-	}
-	
+		
 	@Action(enabledProperty="notAlgoRunning")
 	public void randomGraph() {
 		// dummy action, just needed for properties
-	}
-	
-	@Action
-	public void smallRandomGraph() {
-		randomGraph(3, 3, .3, 2);
-	}
-	
-	@Action
-	public void mediumRandomGraph() {
-		randomGraph(5, 5, .8, .5);
-	}
-	
-	@Action
-	public void largeRandomGraph() {
-		randomGraph(10, 10, .8, .5);
-	}
-	
-	@Action
-	public void hugeRandomGraph() {
-		randomGraph(15, 15, .9, .2);
 	}
 	
 	private void sampleGraph(String name) {
