@@ -24,7 +24,7 @@ import org.jdesktop.application.ResourceMap;
 import org.jdesktop.swingx.SwingXUtilities;
 import org.jdesktop.swingx.util.OS;
 import co.edu.poli.medgraph.gui.StatusBar;
-import co.edu.poli.medgraph.gui.language.Translation;
+import co.edu.poli.medgraph.language.Translation;
 
 
 /**

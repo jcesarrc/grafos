@@ -14,8 +14,8 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
 import org.jdesktop.application.Application;
-import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
-import co.edu.poli.medgraph.gui.language.LocaleManager;
+import co.edu.poli.medgraph.language.LocaleChangeListener;
+import co.edu.poli.medgraph.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
 
 

@@ -70,8 +70,8 @@ import co.edu.poli.medgraph.gui.transformer.MyEdgePaintTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyEdgeStrokeTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyNodeFillPaintTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyNodeShapeTransformer;
-import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
-import co.edu.poli.medgraph.gui.language.LocaleManager;
+import co.edu.poli.medgraph.language.LocaleChangeListener;
+import co.edu.poli.medgraph.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
 import java.util.Hashtable;
 

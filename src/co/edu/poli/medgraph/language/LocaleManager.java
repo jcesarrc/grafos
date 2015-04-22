@@ -1,5 +1,5 @@
 
-package co.edu.poli.medgraph.gui.language;
+package co.edu.poli.medgraph.language;
 
 import java.util.HashSet;
 import java.util.Locale;

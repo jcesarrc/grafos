@@ -1,4 +1,4 @@
-package co.edu.poli.medgraph.gui.mouse.plugins;
+package co.edu.poli.medgraph.gui.jung.mouse.plugins;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -23,8 +23,8 @@ import co.edu.poli.medgraph.gui.GraphPanel;
 import co.edu.poli.medgraph.gui.animation.animations.Animation;
 import co.edu.poli.medgraph.gui.animation.renderer.MyAnimationEdgeRenderer;
 import co.edu.poli.medgraph.gui.animation.renderer.MyAnimationNodeRenderer;
-import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
-import co.edu.poli.medgraph.gui.language.LocaleManager;
+import co.edu.poli.medgraph.language.LocaleChangeListener;
+import co.edu.poli.medgraph.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
 
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;

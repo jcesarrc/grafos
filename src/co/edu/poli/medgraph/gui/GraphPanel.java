@@ -44,8 +44,8 @@ import co.edu.poli.medgraph.gui.transformer.MyNodeFillPaintTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyNodeLabelTransformer;
 import co.edu.poli.medgraph.gui.transformer.MyNodeShapeTransformer;
 import co.edu.poli.medgraph.io.FileHandler;
-import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
-import co.edu.poli.medgraph.gui.language.LocaleManager;
+import co.edu.poli.medgraph.language.LocaleChangeListener;
+import co.edu.poli.medgraph.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
 
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;

@@ -21,7 +21,7 @@ import co.edu.poli.medgraph.gui.GraphPanel;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyEditingGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyHighlighterGraphMousePlugin;
-import co.edu.poli.medgraph.gui.mouse.plugins.MyInfoOverlayGraphMousePlugin;
+import co.edu.poli.medgraph.gui.jung.mouse.plugins.MyInfoOverlayGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyPickingGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyRotatingGraphMousePlugin;
 import co.edu.poli.medgraph.gui.mouse.plugins.MyStartnodeGraphMousePlugin;

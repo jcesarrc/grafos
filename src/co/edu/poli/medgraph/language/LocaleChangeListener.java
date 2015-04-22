@@ -1,4 +1,4 @@
-package co.edu.poli.medgraph.gui.language;
+package co.edu.poli.medgraph.language;
 
 public interface LocaleChangeListener {
 	

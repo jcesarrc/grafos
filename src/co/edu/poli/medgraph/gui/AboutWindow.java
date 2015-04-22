@@ -1,6 +1,7 @@
 
 package co.edu.poli.medgraph.gui;
 
+import co.edu.poli.medgraph.DijkstraVisApp;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.net.URL;

@@ -1,6 +1,7 @@
 
 package co.edu.poli.medgraph.gui;
 
+import co.edu.poli.medgraph.DijkstraVisApp;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -20,8 +21,8 @@ import javax.swing.SwingConstants;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.JXHeader;
-import co.edu.poli.medgraph.gui.language.LocaleChangeListener;
-import co.edu.poli.medgraph.gui.language.LocaleManager;
+import co.edu.poli.medgraph.language.LocaleChangeListener;
+import co.edu.poli.medgraph.language.LocaleManager;
 import co.edu.poli.medgraph.util.SC;
 import net.miginfocom.swing.MigLayout;
 

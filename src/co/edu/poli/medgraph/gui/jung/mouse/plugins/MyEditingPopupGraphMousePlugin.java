@@ -13,7 +13,7 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.collections15.Factory;
 import org.jdesktop.application.Application;
-import co.edu.poli.medgraph.gui.DijkstraVisApp;
+import co.edu.poli.medgraph.DijkstraVisApp;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
 import co.edu.poli.medgraph.util.SC;

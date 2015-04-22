@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.collections15.Transformer;
 import org.jdesktop.application.Application;
-import co.edu.poli.medgraph.gui.DijkstraVisApp;
+import co.edu.poli.medgraph.DijkstraVisApp;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
