@@ -1,10 +1,9 @@
 package co.edu.poli.medgraph.grafo.impl;
 
-import org.apache.commons.collections15.Factory;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.INode;
-
 import edu.uci.ics.jung.graph.Graph;
+import org.apache.commons.collections15.Factory;
 
 public class MyGraphFactory implements Factory<Graph<INode, IEdge>> {
 

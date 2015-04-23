@@ -1,6 +1,19 @@
 
 package co.edu.poli.medgraph.io;
 
+import co.edu.poli.medgraph.DijkstraVisApp;
+import co.edu.poli.medgraph.grafo.GraphManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.grafo.impl.MyEdgeFactory;
+import co.edu.poli.medgraph.grafo.impl.MyGraphFactory;
+import co.edu.poli.medgraph.grafo.impl.MyNode;
+import co.edu.poli.medgraph.grafo.impl.MyNodeFactory;
+import co.edu.poli.medgraph.gui.GraphPanel;
+import co.edu.poli.medgraph.util.SC;
+import com.thoughtworks.xstream.XStream;
+import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -18,28 +31,12 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-
 import org.apache.commons.collections15.Transformer;
 import org.jdesktop.application.Application;
-import co.edu.poli.medgraph.DijkstraVisApp;
-import co.edu.poli.medgraph.grafo.GraphManager;
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.IGraph;
-import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.grafo.impl.MyEdgeFactory;
-import co.edu.poli.medgraph.grafo.impl.MyGraphFactory;
-import co.edu.poli.medgraph.grafo.impl.MyNode;
-import co.edu.poli.medgraph.grafo.impl.MyNodeFactory;
-import co.edu.poli.medgraph.gui.GraphPanel;
-import co.edu.poli.medgraph.util.SC;
-import com.thoughtworks.xstream.XStream;
-
-import edu.uci.ics.jung.graph.Graph;
 
 public class FileHandler {
 
@@ -282,12 +279,7 @@ public class FileHandler {
 		return true;
 	}
 	
-    /* 
-	 * Copies a file out of the jar to a physical location.  
-	 *    Doesn't need to be private, uses a resource stream, so may have
-	 *    security errors if ran from webstart application
-	 * 
-	 * FROM: http://forum.java.sun.com/thread.jspa?threadID=5154854&messageID=9585048 
+        /* Codigo de: http://forum.java.sun.com/thread.jspa?threadID=5154854&messageID=9585048 
 	 */
 	public static boolean copyFromJar(Class<?> clazz, String sResource, File fDest) {
 		if (sResource == null || fDest == null)

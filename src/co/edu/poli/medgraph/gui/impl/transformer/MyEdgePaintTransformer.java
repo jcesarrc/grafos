@@ -1,16 +1,15 @@
-package co.edu.poli.medgraph.gui.transformer;
+package co.edu.poli.medgraph.gui.impl.transformer;
 
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.geom.Point2D;
-
-import org.apache.commons.collections15.Transformer;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
 import co.edu.poli.medgraph.grafo.GraphChangeListener;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.geom.Point2D;
+import org.apache.commons.collections15.Transformer;
 
 
 public class MyEdgePaintTransformer implements Transformer<IEdge, Paint>, GraphChangeListener {

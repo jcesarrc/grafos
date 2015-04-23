@@ -1,6 +1,23 @@
 
-package co.edu.poli.medgraph.gui.animation.renderer;
+package co.edu.poli.medgraph.gui.impl.animation.renderer;
 
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.gui.impl.animation.animations.Animation;
+import co.edu.poli.medgraph.gui.impl.animation.animations.EdgeLineAnimation;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Context;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.graph.util.Pair;
+import edu.uci.ics.jung.visualization.Layer;
+import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
+import edu.uci.ics.jung.visualization.renderers.BasicEdgeRenderer;
+import edu.uci.ics.jung.visualization.transform.LensTransformer;
+import edu.uci.ics.jung.visualization.transform.MutableTransformer;
+import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,31 +32,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
-
 import javax.swing.JComponent;
 
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
-import co.edu.poli.medgraph.gui.animation.animations.Animation;
-import co.edu.poli.medgraph.gui.animation.animations.EdgeLineAnimation;
-
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.util.Context;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.util.EdgeType;
-import edu.uci.ics.jung.graph.util.Pair;
-import edu.uci.ics.jung.visualization.Layer;
-import edu.uci.ics.jung.visualization.RenderContext;
-import edu.uci.ics.jung.visualization.decorators.EdgeShape;
-import edu.uci.ics.jung.visualization.renderers.BasicEdgeRenderer;
-import edu.uci.ics.jung.visualization.transform.LensTransformer;
-import edu.uci.ics.jung.visualization.transform.MutableTransformer;
-import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
-
-/**
- * Based on source code of {@link BasicEdgeRenderer}.
- */
 public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 
 	private static final BasicStroke MARKER_STROKE = new BasicStroke(15f);
@@ -64,15 +58,7 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 		animations.clear();
 	}
 
-	/**
-	 * Draws the edge <code>e</code>, whose endpoints are at
-	 * <code>(x1,y1)</code> and <code>(x2,y2)</code>, on the graphics
-	 * context <code>g</code>. The <code>Shape</code> provided by the
-	 * <code>EdgeShapeFunction</code> instance is scaled in the x-direction so
-	 * that its width is equal to the distance between <code>(x1,y1)</code>
-	 * and <code>(x2,y2)</code>.
-	 */
-	// /*
+	
 	@Override
 	protected void drawSimpleEdge(final RenderContext<INode, IEdge> rc, Layout<INode, IEdge> layout, final IEdge e) {
 
@@ -106,9 +92,7 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 		AffineTransform xform = AffineTransform.getTranslateInstance(x1, y1);
 
 		if (isLoop) {
-			// this is a self-loop. scale it is larger than the vertex
-			// it decorates and translate it so that its nadir is
-			// at the center of the vertex.
+			
 			Rectangle2D s2Bounds = s2.getBounds2D();
 			xform.scale(s2Bounds.getWidth(), s2Bounds.getHeight());
 			xform.translate(0, -edgeShape.getBounds2D().getWidth() / 2);
@@ -116,7 +100,7 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 			float dx = x2 - x1;
 			float dy = y2 - y1;
 			GeneralPath gp = new GeneralPath();
-			gp.moveTo(0, 0);// the xform will do the translation to x1,y1
+			gp.moveTo(0, 0);
 			if (x1 > x2) {
 				if (y1 > y2) {
 					gp.lineTo(dx, 0);
@@ -140,9 +124,7 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 			edgeShape = gp;
 
 		} else {
-			// this is a normal edge. Rotate it to the angle between
-			// vertex endpoints, then scale it to the distance between
-			// the vertices
+			
 			float dx = x2 - x1;
 			float dy = y2 - y1;
 			float thetaRadians = (float) Math.atan2(dy, dx);
@@ -180,15 +162,12 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 			if (animate) {
 				a.paint(rc, e, edgeShape);
 			} else {
-				// check for reverse edge that was already painted
 				IEdge edge = graph.findEdge(v2, v1);
 				boolean dontPaint =
 					!DijkstraAlgorithmManager.isAlgoRunning() && !e.isHighlighted()
 					&& edge != null && (edge.getId() < e.getId()
 					&& getAnimation(edge) == null);
 				
-				// get Paints for filling and drawing
-				// (filling is done first so that drawing and label use same Paint)
 				if (!dontPaint) {
 					if (fill_paint != null) {
 						g.setPaint(fill_paint);
@@ -204,7 +183,6 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 
 			float scalex = (float) g.getTransform().getScaleX();
 			float scaley = (float) g.getTransform().getScaleY();
-			// see if arrows are too small to bother drawing
 			if (scalex < .3 || scaley < .3)
 				return;
 
@@ -256,8 +234,6 @@ public class MyAnimationEdgeRenderer extends BasicEdgeRenderer<INode, IEdge> {
 					}
 				}
 			}
-
-			// restore old paint
 			g.setPaint(oldPaint);
 		}
 	}

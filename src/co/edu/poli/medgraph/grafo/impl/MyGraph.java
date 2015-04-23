@@ -1,19 +1,16 @@
 package co.edu.poli.medgraph.grafo.impl;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
+import co.edu.poli.medgraph.algoritmo.AlgorithmProgressListener;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.algoritmo.DijkstraStepChanges;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.AlgorithmProgressListener;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
-import co.edu.poli.medgraph.algoritmo.DijkstraStepChanges;
-
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-//import edu.uci.ics.jung.graph.SimpleGraph;
 import edu.uci.ics.jung.graph.util.Pair;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class MyGraph extends DirectedSparseGraph<INode, IEdge> implements IGraph, AlgorithmProgressListener<DijkstraStepChanges> {
@@ -100,7 +97,7 @@ public class MyGraph extends DirectedSparseGraph<INode, IEdge> implements IGraph
 	}
 
 	public INode getStart() {
-		// in case root node gets deleted
+            // Si se borra el nodo inicial
 		if (containsVertex(root))
 			return root;
 		else

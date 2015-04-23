@@ -1,5 +1,13 @@
-package co.edu.poli.medgraph.gui.animation.renderer;
+package co.edu.poli.medgraph.gui.impl.animation.renderer;
 
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.gui.impl.animation.animations.Animation;
+import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.visualization.picking.PickedState;
+import edu.uci.ics.jung.visualization.renderers.BasicVertexRenderer;
+import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Paint;
@@ -10,19 +18,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
-import co.edu.poli.medgraph.gui.animation.animations.Animation;
 
-import edu.uci.ics.jung.visualization.RenderContext;
-import edu.uci.ics.jung.visualization.picking.PickedState;
-import edu.uci.ics.jung.visualization.renderers.BasicVertexRenderer;
-import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
-
-/**
- * Based on source code of {@link BasicVertexRenderer}.
- */
 public class MyAnimationNodeRenderer extends BasicVertexRenderer<INode, IEdge> {
 
 	private Map<INode, Animation<INode>> animations = new WeakHashMap<INode, Animation<INode>>();

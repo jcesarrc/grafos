@@ -1,14 +1,12 @@
 
 package co.edu.poli.medgraph.gui;
 
+import co.edu.poli.medgraph.util.SC;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
@@ -16,21 +14,16 @@ import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
 import net.miginfocom.swing.MigLayout;
-
 import org.jdesktop.application.Action;
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.JXTitledSeparator;
-import co.edu.poli.medgraph.language.LocaleChangeListener;
-import co.edu.poli.medgraph.language.LocaleManager;
-import co.edu.poli.medgraph.util.SC;
 
 
 @SuppressWarnings("serial")
-public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener {
+public class HelpPanel extends JXCollapsiblePane {
 	
     private static final int WIDTH = 250;
 	
@@ -42,7 +35,6 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 		setCollapsed(true);
 		setName("main");		
 		
-//		JXTaskPaneContainer tpc = new JXTaskPaneContainer();
 		JXPanel tpc = new JXPanel() {
 			@Override
 			public boolean getScrollableTracksViewportHeight() {
@@ -90,8 +82,7 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 		tpc.add(newTopic("help_dijkstra_algorithm_how"));
 		tpc.add(newTopic("help_dijkstra_algorithm_where"));
 				
-		LocaleManager.addLocaleChangeListener(this);
-		localeChanged();
+		
 	}
 	
 	private JXTaskPane newTopic(final String title) {
@@ -99,14 +90,7 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 		final JXTaskPane tp = new JXTaskPane();
 		tp.setLayout(new MigLayout("insets -7"));
 		
-		/*tp.setExpanded(false);
-		
-		tp.addPropertyChangeListener(JXTaskPane.EXPANDED_CHANGED_KEY, new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				tp.setAnimated(!tp.isExpanded());
-			}
-		});
-                        */
+	
 		
 		final JEditorPane html = new JEditorPane("text/html", null) {
 			@Override
@@ -127,14 +111,7 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 			e.printStackTrace();
 		}
 
-		final LocaleChangeListener lcl = new LocaleChangeListener() {
-			public void localeChanged() {
-				tp.setTitle(SC.getResourceMap(HelpPanel.class).getString(title));
-				html.setText(String.format("<html><body>%s</body></html>", SC.getResourceMap(HelpPanel.class).getString(content)));
-			}
-		};
-		LocaleManager.addLocaleChangeListener(lcl);
-		lcl.localeChanged();
+		
 		
 		return tp;
 	}
@@ -144,10 +121,6 @@ public class HelpPanel extends JXCollapsiblePane implements LocaleChangeListener
 		setCollapsed(!isCollapsed());
 	}
 	
-	public void localeChanged() {
-		setBorder(BorderFactory.createTitledBorder(SC.t("help")));
-		SC.getResourceMap(HelpPanel.class).injectComponents(this);
-	}
 	
 
 }

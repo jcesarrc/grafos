@@ -1,17 +1,15 @@
-package co.edu.poli.medgraph.gui.mouse.plugins;
-
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.Point2D;
+package co.edu.poli.medgraph.gui.impl.mouse.plugins;
 
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AbstractGraphMousePlugin;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 
 public class MyStartnodeGraphMousePlugin extends AbstractGraphMousePlugin implements MouseListener {
 	public MyStartnodeGraphMousePlugin() {

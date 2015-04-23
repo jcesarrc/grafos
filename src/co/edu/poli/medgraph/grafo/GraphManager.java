@@ -3,7 +3,6 @@ package co.edu.poli.medgraph.grafo;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.apache.commons.collections15.Transformer;
 
 
@@ -43,7 +42,6 @@ public class GraphManager {
 		}
 	}
 
-	// called by MyGraph
 	public static void graphChanged() {
 		for (final GraphChangeListener l : listeners) {
 			l.graphChanged();

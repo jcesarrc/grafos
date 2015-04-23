@@ -1,18 +1,16 @@
 
-package co.edu.poli.medgraph.gui.animation.animations;
+package co.edu.poli.medgraph.gui.impl.animation.animations;
 
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.gui.impl.transformer.MyEdgePaintTransformer;
+import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.gui.transformer.MyEdgePaintTransformer;
-
-import edu.uci.ics.jung.visualization.RenderContext;
-import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 
 public class EdgeLineAnimation extends Animation<IEdge> {
 
@@ -32,7 +30,6 @@ public class EdgeLineAnimation extends Animation<IEdge> {
 		if (isFinished() && reverse) return MyEdgePaintTransformer.UNIMPORTANT_COLOR;
 		if (isFinished() && !reverse) return regular;
 		if (inProgress() && reverse) return MyEdgePaintTransformer.UNIMPORTANT_COLOR;
-		// draw arrow head if line is "under" arrow head or node (7 is arrow head length)
 		if (inProgress() && !reverse) return leftToDraw <= targetRadius+5 ? regular : MyEdgePaintTransformer.UNIMPORTANT_COLOR;
 		return regular;
 	}
@@ -77,7 +74,6 @@ public class EdgeLineAnimation extends Animation<IEdge> {
 
 		if (draw_paint == null) return;
 
-		// always paint first with unimportant color
 		g.setPaint(MyEdgePaintTransformer.UNIMPORTANT_COLOR);
 		g.draw(shape);
 		g.setPaint(draw_paint);

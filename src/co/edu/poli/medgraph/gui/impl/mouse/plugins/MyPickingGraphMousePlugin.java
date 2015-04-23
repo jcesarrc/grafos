@@ -1,29 +1,5 @@
-/*
- * Copyright (C) 2008, Uwe Schmidt 
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
- * Software is furnished to do so, subject to the following conditions: 
- * 
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software. 
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE. 
- */
-package co.edu.poli.medgraph.gui.mouse.plugins;
 
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
+package co.edu.poli.medgraph.gui.impl.mouse.plugins;
 
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -31,9 +7,12 @@ import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.PickingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 /**
- * Based on source code of {@link PickingGraphMousePlugin}.
+ * COPYRIGHT: CLASE BASADA EN EL CODIGO DE {@link PickingGraphMousePlugin}.
  */
 public class MyPickingGraphMousePlugin<V, E> extends PickingGraphMousePlugin<V, E> {
 	
@@ -67,10 +46,7 @@ public class MyPickingGraphMousePlugin<V, E> extends PickingGraphMousePlugin<V, 
                     	pickedVertexState.clear();
                     	pickedVertexState.pick(vertex, true);
                     }
-                    // layout.getLocation applies the layout transformer so
-                    // q is transformed by the layout transformer only
                     Point2D q = layout.transform(vertex);
-                    // transform the mouse point to graph coordinate system
                     Point2D gp = vv.getRenderContext().getMultiLayerTransformer().inverseTransform(Layer.LAYOUT, ip);
 
                     offsetx = (float) (gp.getX()-q.getX());
@@ -88,7 +64,6 @@ public class MyPickingGraphMousePlugin<V, E> extends PickingGraphMousePlugin<V, 
                 vv.addPostRenderPaintable(lensPaintable);
                 rect.setFrameFromDiagonal(down,down);
                 Point2D p = e.getPoint();
-                // remove view transform
                 Point2D ip = p;//vv.getRenderContext().getBasicTransformer().inverseViewTransform(p);
                 vertex = pickSupport.getVertex(layout, ip.getX(), ip.getY());
                 if(vertex != null) {
@@ -97,8 +72,7 @@ public class MyPickingGraphMousePlugin<V, E> extends PickingGraphMousePlugin<V, 
                         vertex = null;
                     } else {
 
-                        // layout.getLocation applies the layout transformer so
-                        // q is transformed by the layout transformer only
+                       
                         Point2D q = layout.transform(vertex);
                         // translate mouse point to graph coord system
                         Point2D gp = vv.getRenderContext().getMultiLayerTransformer().inverseTransform(Layer.LAYOUT, ip);

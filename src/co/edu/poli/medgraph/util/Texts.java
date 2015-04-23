@@ -1,14 +1,12 @@
 
-package co.edu.poli.medgraph.language;
+package co.edu.poli.medgraph.util;
 
-import co.edu.poli.medgraph.util.SC;
-
-public class Translation {
+public class Texts {
 	
 	private static String s;
 
-	public static String translate(String key) {
-		s = SC.getResourceMap(Translation.class).getString(key);
+	public static String read(String key) {
+		s = SC.getResourceMap(Texts.class).getString(key);
 		if (s == null) {
 			System.out.printf("No se encontró el texto para [[%s]]\n", key);
 		}

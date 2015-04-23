@@ -1,13 +1,11 @@
 
-package co.edu.poli.medgraph.gui.animation.animations;
-
-import java.awt.Paint;
-import java.awt.Shape;
+package co.edu.poli.medgraph.gui.impl.animation.animations;
 
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.INode;
-
 import edu.uci.ics.jung.visualization.RenderContext;
+import java.awt.Paint;
+import java.awt.Shape;
 
 public class NodeFlashAnimation extends NodeFillAnimation {
 	

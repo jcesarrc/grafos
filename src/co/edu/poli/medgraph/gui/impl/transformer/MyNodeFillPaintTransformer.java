@@ -1,22 +1,20 @@
 
-package co.edu.poli.medgraph.gui.transformer;
+package co.edu.poli.medgraph.gui.impl.transformer;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
-
-import org.apache.commons.collections15.Transformer;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
 import co.edu.poli.medgraph.grafo.GraphChangeListener;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
-
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.RenderContext;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+import org.apache.commons.collections15.Transformer;
 
 public class MyNodeFillPaintTransformer implements Transformer<INode, Paint>, GraphChangeListener {
 

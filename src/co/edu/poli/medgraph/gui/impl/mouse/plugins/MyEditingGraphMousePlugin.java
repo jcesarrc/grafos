@@ -1,21 +1,19 @@
 
-package co.edu.poli.medgraph.gui.mouse.plugins;
+package co.edu.poli.medgraph.gui.impl.mouse.plugins;
 
-import java.awt.Cursor;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-
-import org.apache.commons.collections15.Factory;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.INode;
 import co.edu.poli.medgraph.grafo.impl.MyEdge;
 import co.edu.poli.medgraph.grafo.impl.MyNode;
-import co.edu.poli.medgraph.gui.jung.mouse.MyGraphMouse;
-
+import co.edu.poli.medgraph.gui.impl.mouse.MyGraphMouse;
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.EditingGraphMousePlugin;
+import java.awt.Cursor;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import org.apache.commons.collections15.Factory;
 
 public class MyEditingGraphMousePlugin extends EditingGraphMousePlugin<MyNode, MyEdge> {
 	
@@ -40,8 +38,6 @@ public class MyEditingGraphMousePlugin extends EditingGraphMousePlugin<MyNode, M
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		super.mouseReleased(e);
-		// fixes bug when an arrow is pulled and left unconnected
-		// (artefact remains), therefore repaint() necessary, triggers repaint
 		gm.mouseMoved(e);
 	}
 

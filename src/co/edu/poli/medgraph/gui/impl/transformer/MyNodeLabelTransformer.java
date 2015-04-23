@@ -1,7 +1,7 @@
-package co.edu.poli.medgraph.gui.transformer;
+package co.edu.poli.medgraph.gui.impl.transformer;
 
-import org.apache.commons.collections15.Transformer;
 import co.edu.poli.medgraph.grafo.INode;
+import org.apache.commons.collections15.Transformer;
 
 
 public class MyNodeLabelTransformer implements Transformer<INode,String> {

@@ -1,6 +1,11 @@
 
 package co.edu.poli.medgraph.algoritmo;
 
+import co.edu.poli.medgraph.grafo.GraphChangeListener;
+import co.edu.poli.medgraph.grafo.GraphManager;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.IGraph;
+import co.edu.poli.medgraph.grafo.INode;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,21 +17,12 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
-
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.set.ListOrderedSet;
-import co.edu.poli.medgraph.grafo.GraphChangeListener;
-import co.edu.poli.medgraph.grafo.GraphManager;
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.IGraph;
-import co.edu.poli.medgraph.grafo.INode;
 
 
 public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>, GraphChangeListener {
 
-	/**
-	 * <i>Command</i> pattern.
-	 */
 	private static interface Step {
 		public void execute();
 		public void unexecute();
@@ -36,7 +32,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 	private final Comparator<INode> nodeDistanceComparator = new Comparator<INode>() {
 		public int compare(INode node1, INode node2) {
 			int cmp = Double.compare(getDistance(node1), getDistance(node2));
-			// arbitrary ordering in case of equal distance
+			// si las dos distancias son iguales se elige una aleatoriamente
 			return cmp != 0 ? cmp : 1;
 		};
 	};
@@ -51,7 +47,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
 	private int step;
 
-	// command at index i (un-)executes step i
+	// Para poder ir pasos hacia adelante o atrás en la simulación
 	private final List<Step> history = new ArrayList<Step>();
 
 	private final Set<AlgorithmProgressListener<DijkstraStepChanges>> listener = new HashSet<AlgorithmProgressListener<DijkstraStepChanges>>();
@@ -79,7 +75,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 		start = null;
 		if (graph == null)
 			return;
-		// set all distances to infinity
+		// todas las distancias entre nodos son inicialmente "infinitas"
 		for (final INode v : graph.getNodes()) {
 			v.setHighlighted(false);
 			setDistance(v, Double.POSITIVE_INFINITY);
@@ -96,7 +92,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
 	public void initialize(INode... nodes) {
 		if (graph == null)
-			throw new RuntimeException("Graph not set.");
+			throw new RuntimeException("No hay un grafo");
 		step = 0;
 		S.clear();
 		Q.clear();
@@ -126,7 +122,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 	}
 
 	/**
-	 * Simple DFS to determine number of nodes reachable from start node
+	 * Método para determinar el número de nodos alcanzables desde el nodo inicial
 	 */
 	private int getNumberOfConnectedNodes(final Set<INode> visited, INode node) {
 		int sum = 1;
@@ -140,9 +136,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 		return sum;
 	}
 
-	/**
-	 * Precomputes very next step
-	 */
+	
 	private void computeNextStep() {
 		if (step == history.size()) {
 			calculateStep();
@@ -151,19 +145,18 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
 	private void calculateStep() {
 
-		// next node to expand
+		// siguiente nodo para expandir
 		final INode u = getMinimumDistanceNode();
 
-		// store distance changes in step
+		// guardar cambios de distancias
 		final DijkstraStepChanges changes = new DijkstraStepChanges();
 
-		// add min distance node
+		// anadir minima distancia al nodo
 		changes.setMinimum(u, getDistance(u));
 
-		// relax neighbors of u
 		for (final IEdge e : graph.getOutEdges(u)) {
 			final INode v = graph.getDest(e);
-			// node already has final distance
+			
 			if (isSettled(v))
 				continue;
 			double dv = getDistance(v);
@@ -175,14 +168,12 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 			}
 		}
 
-		// create command to execute/unexecute changes in step
+		// permite regresar a un paso anterior en la simulacion
 		history.add(new Step() {
 			public void execute() {
 				removeFromQueue(u);
 				setSettled(u, true);
 
-				// all found and improved nodes from last step are now just
-				// visited
 				if (step >= 1) {
 					final DijkstraStepChanges lastChanges = history.get(step - 1).getChanges();
 					for (final INode v : lastChanges.getChangedNodes()) {
@@ -201,10 +192,10 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 					removeFromQueue(v);
 					addToQueue(v);
 
-					// change attribute (found or improved)
+					
 					v.setAttribute(changes.getNewAttribute(v));
 
-					// change predecessor edges
+					
 					final IEdge oldPredecessorEdge = changes.getOldPredecessorEdge(v);
 					final IEdge newPredecessorEdge = changes.getNewPredecessorEdge(v);
 					setPredecessorEdge(v, newPredecessorEdge);
@@ -235,7 +226,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 			}
 
 			public void unexecute() {
-				// evens out the step++ in execute()
+				
 				step--;
 				addToQueue(u);
 				setSettled(u, false);
@@ -247,15 +238,12 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 				for (final INode v : changes.getChangedNodes()) {
 					setDistance(v, changes.getOldDistance(v));
 					removeFromQueue(v);
-					// distance of infinity means that no path has been found,
-					// thus no placement in Q
+					//si la distancias es infinito no se encontro un camino optimo
 					if (changes.getOldDistance(v) < Double.POSITIVE_INFINITY)
 						addToQueue(v);
 
-					// change attribute (reset to old one)
 					v.setAttribute(changes.getOldAttribute(v));
 
-					// change predecessor edges
 					final IEdge oldPredecessorEdge = changes.getOldPredecessorEdge(v);
 					final IEdge newPredecessorEdge = changes.getNewPredecessorEdge(v);
 					setPredecessorEdge(v, oldPredecessorEdge);
@@ -264,7 +252,6 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 					newPredecessorEdge.setAttribute(changes.getOldAttribute(newPredecessorEdge));
 				}
 
-				// all found and improved nodes and edges from last step
 				if (step >= 1) {
 					final DijkstraStepChanges lastChanges = history.get(step - 1).getChanges();
 					for (final INode v : lastChanges.getChangedNodes()) {
@@ -275,7 +262,6 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 							oldEdge.setAttribute(lastChanges.getNewAttribute(oldEdge));
 						newEdge.setAttribute(lastChanges.getNewAttribute(newEdge));
 					}
-					// reset next minimum
 					final INode nextMin = lastChanges.getNextMinimum();
 					switch (nextMin.getAttribute()) {
 						case PATH_FOUND:
@@ -303,9 +289,8 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
 	private synchronized DijkstraStepChanges stepForward(boolean notifyListener) {
 		if (!isFinished()) {
-			info("\n### Step %d ###\n", step);
+			info("\n### Paso %d ###\n", step);
 			
-			// step not calculated yet (1st step)
 			if (step == history.size()) {
 				calculateStep();
 			}
@@ -313,7 +298,6 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 			currentStep.execute();
 			if (notifyListener)
 				updateCurrentStep(currentStep.getChanges());
-			// pre-computation
 			if (!isFinished())
 				computeNextStep();
 
@@ -327,10 +311,10 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
 	public synchronized void stepBackward() {
 		if (!isAtTheBeginning()) {
-			info("\n### Undo Step %d ###\n", step - 1);
+			info("\n### Deshacer paso %d ###\n", step - 1);
 			
 			final Step lastStep = history.get(step - 1);
-			lastStep.unexecute(); // causes step--
+			lastStep.unexecute(); 
 			updateCurrentStep(step >= 1 ? history.get(step - 1).getChanges() : null);
 
 			info(">>> S = %s\n", S);
@@ -339,9 +323,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 		}
 	}
 
-	/**
-	 * Runs till the end of the algorithm and only notifies listener when finished.
-	 */ 
+	
 	public void run() {
 		DijkstraStepChanges changes = null;
 		while (!isFinished()) {
@@ -358,7 +340,6 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 		return step == 0;
 	}
 
-	// O(1) because it doesn't remove minimum element (just peek())
 	private INode getMinimumDistanceNode() {
 		info("getMinimumDistanceNode() = %s\n", Q.peek());
 		return Q.peek();
@@ -396,7 +377,6 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 		distance.put(v, dist);
 	}
 
-	// O(1) because of HashSet
 	private boolean isSettled(final INode v) {
 		info("isSettled(%s) = %s\n", v, S.contains(v));
 		return S.contains(v);
@@ -411,8 +391,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 	// O(log(n))
 	private void removeFromQueue(final INode v) {
 		info("removeFromQueue(%s)\n", v);
-		// see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6268068
-		// Q.remove(v);
+		
 		Q.removeAll(Collections.singletonList(v));
 	}
 

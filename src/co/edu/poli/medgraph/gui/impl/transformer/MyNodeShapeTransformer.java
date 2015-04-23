@@ -1,12 +1,11 @@
 
-package co.edu.poli.medgraph.gui.transformer;
+package co.edu.poli.medgraph.gui.impl.transformer;
 
+import co.edu.poli.medgraph.grafo.INode;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
-
 import org.apache.commons.collections15.Transformer;
-import co.edu.poli.medgraph.grafo.INode;
 
 
 public class MyNodeShapeTransformer implements Transformer<INode, Shape> {

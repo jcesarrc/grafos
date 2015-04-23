@@ -1,22 +1,20 @@
-package co.edu.poli.medgraph.gui.mouse.plugins;
+package co.edu.poli.medgraph.gui.impl.mouse.plugins;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Point2D;
-
-import org.apache.commons.collections15.Transformer;
+import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
 import co.edu.poli.medgraph.grafo.GraphChangeListener;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.algoritmo.DijkstraAlgorithmManager;
-import co.edu.poli.medgraph.gui.animation.animations.Animation;
-import co.edu.poli.medgraph.gui.animation.renderer.MyAnimationNodeRenderer;
-
+import co.edu.poli.medgraph.gui.impl.animation.animations.Animation;
+import co.edu.poli.medgraph.gui.impl.animation.renderer.MyAnimationNodeRenderer;
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AbstractGraphMousePlugin;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
+import org.apache.commons.collections15.Transformer;
 
 public class MyHighlighterGraphMousePlugin extends AbstractGraphMousePlugin implements MouseMotionListener, GraphChangeListener {
 	

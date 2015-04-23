@@ -1,23 +1,9 @@
-package co.edu.poli.medgraph.gui.mouse.plugins;
+package co.edu.poli.medgraph.gui.impl.mouse.plugins;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-import java.util.Set;
-
-import javax.swing.AbstractAction;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-
-import org.apache.commons.collections15.Factory;
-import org.jdesktop.application.Application;
 import co.edu.poli.medgraph.DijkstraVisApp;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
 import co.edu.poli.medgraph.util.SC;
-
 import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -27,10 +13,19 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.EditingPopupGraphMousePlugin;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.util.Set;
+import javax.swing.AbstractAction;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import org.apache.commons.collections15.Factory;
+import org.jdesktop.application.Application;
 
-/**
- * Based on source code of {@link EditingPopupGraphMousePlugin}.
- */
+
 public class MyEditingPopupGraphMousePlugin<V, E> extends EditingPopupGraphMousePlugin<V, E> {
 	public MyEditingPopupGraphMousePlugin(Layout<V, E> layout, Factory<V> vertexFactory, Factory<E> edgeFactory) {
 		super(vertexFactory, edgeFactory);

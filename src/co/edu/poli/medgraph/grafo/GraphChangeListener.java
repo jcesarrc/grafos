@@ -1,7 +1,6 @@
 package co.edu.poli.medgraph.grafo;
 
 import java.awt.geom.Point2D;
-
 import org.apache.commons.collections15.Transformer;
 
 public interface GraphChangeListener {

@@ -5,17 +5,13 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import co.edu.poli.medgraph.language.LocaleChangeListener;
-import co.edu.poli.medgraph.language.LocaleManager;
-
 
 @SuppressWarnings("serial")
-public class StatusBar extends JPanel implements LocaleChangeListener {
+public class StatusBar extends JPanel {
 
 	public static final String EMPTY_TEXT = " ";
 	private static StatusBar instance = null;
@@ -32,7 +28,7 @@ public class StatusBar extends JPanel implements LocaleChangeListener {
 		setLayout(new FlowLayout(FlowLayout.LEFT, 3, 3));
 		add(label = new JLabel(EMPTY_TEXT));
 		label.setForeground(Color.DARK_GRAY);
-		LocaleManager.addLocaleChangeListener(this);
+		
 	}
 	
 	public void setText(final String str) {
@@ -41,9 +37,7 @@ public class StatusBar extends JPanel implements LocaleChangeListener {
 		}
 	}
 	
-	public void localeChanged() {
-		setText(EMPTY_TEXT);
-	}
+	
 	
 	public class MouseListener extends MouseAdapter {
 		

@@ -1,27 +1,24 @@
 
-package co.edu.poli.medgraph.gui.animation.renderer;
+package co.edu.poli.medgraph.gui.impl.animation.renderer;
 
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
+import co.edu.poli.medgraph.gui.impl.animation.animations.Animation;
+import co.edu.poli.medgraph.gui.impl.animation.animations.EdgeLineAnimation;
+import co.edu.poli.medgraph.gui.impl.transformer.MyEdgePaintTransformer;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.visualization.renderers.BasicRenderer;
 import java.awt.Paint;
 import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.List;
 
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.gui.animation.animations.Animation;
-import co.edu.poli.medgraph.gui.animation.animations.EdgeLineAnimation;
-import co.edu.poli.medgraph.gui.transformer.MyEdgePaintTransformer;
-
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.visualization.RenderContext;
-import edu.uci.ics.jung.visualization.renderers.BasicRenderer;
-
 /**
- * Sorts edges into three sets before they are painted. This is done to prevent
- * currently "unimportant" edges to be painted over "important" ones.<br>
- * Edges not on a path are painted first. Secondly, edges on a path without change
- * at the current step are painted. Edges which are currently animated or changed 
- * are painted last. 
+ * Ordena las aristas en tres estructuras antes de dibujarlas
+ * Primero: se dibujan las aristas que no estan en la ruta evaluada
+ * Segundo: se dibujan las que estan en las rutas que quedan igual
+ * Tercero: se dibujan las rutas que se estan evaluando
  */
 public class MyAnimationRenderer extends BasicRenderer<INode, IEdge> {
 
@@ -79,16 +76,14 @@ public class MyAnimationRenderer extends BasicRenderer<INode, IEdge> {
 					thirdEdges.add(e);
 					break;
 				default:
-					throw new RuntimeException("Didn't expect edge attribute " + e.getAttribute());
+					throw new RuntimeException("No existe el atributo " + e.getAttribute());
 			}
 		}
 
-		// order in which edges are rendered
 		renderEdgeList(renderContext, layout, firstEdges);
 		renderEdgeList(renderContext, layout, secondEdges);
 		renderEdgeList(renderContext, layout, thirdEdges);
 
-		// paint all vertices
 		try {
 			for (INode v : layout.getGraph().getVertices()) {
 				renderVertex(renderContext, layout, v);
@@ -100,7 +95,6 @@ public class MyAnimationRenderer extends BasicRenderer<INode, IEdge> {
 	}
 
 	private void renderEdgeList(final RenderContext<INode, IEdge> renderContext, final Layout<INode, IEdge> layout, final List<IEdge> edges) {
-		// paint all edges
 		try {
 			for (IEdge e : edges) {
 				renderEdge(renderContext, layout, e);

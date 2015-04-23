@@ -1,11 +1,10 @@
 
 package co.edu.poli.medgraph.algoritmo;
+import co.edu.poli.medgraph.grafo.IEdge;
+import co.edu.poli.medgraph.grafo.INode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import co.edu.poli.medgraph.grafo.IEdge;
-import co.edu.poli.medgraph.grafo.INode;
 
 
 public class DijkstraStepChanges {
@@ -18,12 +17,12 @@ public class DijkstraStepChanges {
 	
 	@Override
 	public String toString() {
-		return String.format("Changed nodes = %s", changedDistances.keySet());
+		return String.format("Nodos cambiados: = %s", changedDistances.keySet());
 	}
 
 	public void setDistance(INode v, double oldDistance, double newDistance) {
 		if (newDistance > oldDistance)
-			System.err.println("new distance > old distance");
+			System.err.println("distancia nueva > distancia anterior");
 		changedDistances.put(v, new Double[] { oldDistance, newDistance });
 		oldAttributes.put(v, v.getAttribute());
 	}

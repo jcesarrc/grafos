@@ -1,20 +1,18 @@
-package co.edu.poli.medgraph.gui.transformer;
+package co.edu.poli.medgraph.gui.impl.transformer;
 
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-
-import org.apache.commons.collections15.Transformer;
 import co.edu.poli.medgraph.grafo.GraphChangeListener;
 import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-
-import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.util.ArrowFactory;
+import java.awt.Shape;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import org.apache.commons.collections15.Transformer;
 
 public class MyEdgeArrowTransformer implements Transformer<Context<Graph<INode,IEdge>,IEdge>, Shape>, GraphChangeListener {
 	

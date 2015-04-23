@@ -1,9 +1,0 @@
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$4
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$5
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$6
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$7
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$8
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$1
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$2
-co.edu.poli.medgraph.gui.mouse.plugins.MyEditingPopupGraphMousePlugin$3
