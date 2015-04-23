@@ -69,6 +69,7 @@ public class GraphPanel extends JPanel implements GraphChangeListener, Algorithm
         return instance;
     }
 
+    @Override
     public void graphReplaced(IGraph graph, Transformer<INode, Point2D> layout) {
         this.graph = graph;
         this.layout = layout;
@@ -79,19 +80,23 @@ public class GraphPanel extends JPanel implements GraphChangeListener, Algorithm
         dirty = false;
     }
 
+    @Override
     public void graphChanged() {
         dirty = true;
         setEmptyGraph(graph.getNumberOfNodes() == 0);
     }
 
+    @Override
     public void stepChanged(int step, DijkstraStepChanges changes) {
     }
 
+    @Override
     public void initialized(int maxSteps) {
         setAlgoRunning(true);
 
     }
 
+    @Override
     public void reset() {
         setAlgoRunning(false);
 
@@ -102,15 +107,17 @@ public class GraphPanel extends JPanel implements GraphChangeListener, Algorithm
         GraphManager.addGraphChangeListener(this);
         DijkstraAlgorithmManager.addAlgorithmProgressListener(this);
 
-        vv = new VisualizationViewer<INode, IEdge>(new StaticLayout<INode, IEdge>(MyGraphFactory.getInstance().create()));
+        vv = new VisualizationViewer<INode, IEdge>(new StaticLayout<>(MyGraphFactory.getInstance().create()));
 
         vv.addPreRenderPaintable(new VisualizationServer.Paintable() {
+            @Override
             public void paint(Graphics g) {
                 if (graphBackground != null) {
                     g.drawImage(graphBackground, 0, 0, vv);
                 }
             }
 
+            @Override
             public boolean useTransform() {
                 return false;
             }
@@ -190,7 +197,7 @@ public class GraphPanel extends JPanel implements GraphChangeListener, Algorithm
     }
 
     public Transformer<INode, Point2D> newLayout(Graph<INode, IEdge> graph) {
-        return newLayout(new StaticLayout<INode, IEdge>(graph));
+        return newLayout(new StaticLayout<>(graph));
     }
 
     public Transformer<INode, Point2D> newLayout(Layout<INode, IEdge> delegate) {

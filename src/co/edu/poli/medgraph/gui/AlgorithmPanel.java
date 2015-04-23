@@ -449,7 +449,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
         algo.run();
     }
 
-        //Listeners para actualizar cambios en la interfaz
+    //Listeners para actualizar cambios en la interfaz
     private void updateProgressBar() {
         progressBar.setValue(currentStep == -1 ? 0 : currentStep);
 
@@ -464,6 +464,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
         }
     }
 
+    @Override
     public void stepChanged(final int step, final DijkstraStepChanges changes) {
         this.currentStep = step;
         this.currentChanges = changes;
@@ -526,7 +527,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
     public void reset() {
     }
 
-	// Acciones
+    // Acciones
     public void setCanStepBackward(boolean canStepBackward) {
         final boolean oldValue = this.canStepBackward;
         this.canStepBackward = canStepBackward;

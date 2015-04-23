@@ -7,18 +7,18 @@ import org.apache.commons.collections15.Factory;
 
 public class MyGraphFactory implements Factory<Graph<INode, IEdge>> {
 
-	private static final MyGraphFactory instance = new MyGraphFactory();
+    private static final MyGraphFactory instance = new MyGraphFactory();
 
-	public static MyGraphFactory getInstance() {
-		return instance;
-	}
+    public static MyGraphFactory getInstance() {
+        return instance;
+    }
 
-	private MyGraphFactory() {
-	}
+    private MyGraphFactory() {
+    }
 
-        @Override
-	public Graph<INode, IEdge> create() {
-		return new MyGraph();
-	}
+    @Override
+    public Graph<INode, IEdge> create() {
+        return new MyGraph();
+    }
 
 }

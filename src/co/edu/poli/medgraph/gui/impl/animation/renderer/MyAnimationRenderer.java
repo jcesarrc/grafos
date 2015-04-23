@@ -26,9 +26,9 @@ public class MyAnimationRenderer extends BasicRenderer<INode, IEdge> {
 	private MyAnimationEdgeRenderer edgeRenderer = null;
 
 	public MyAnimationRenderer() {
-		firstEdges = new LinkedList<IEdge>();
-		secondEdges = new LinkedList<IEdge>();
-		thirdEdges = new LinkedList<IEdge>();
+		firstEdges = new LinkedList<>();
+		secondEdges = new LinkedList<>();
+		thirdEdges = new LinkedList<>();
 	}
 
 	@Override

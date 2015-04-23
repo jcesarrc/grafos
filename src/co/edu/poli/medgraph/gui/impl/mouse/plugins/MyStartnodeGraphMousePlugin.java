@@ -17,6 +17,7 @@ public class MyStartnodeGraphMousePlugin extends AbstractGraphMousePlugin implem
 	}
 
 	@SuppressWarnings("unchecked")
+        @Override
 	public void mouseClicked(MouseEvent e) {
 		if (checkModifiers(e) && e.getClickCount() == 2) {
 			VisualizationViewer<INode, IEdge> vv = (VisualizationViewer<INode, IEdge>) e.getSource();
@@ -44,15 +45,19 @@ public class MyStartnodeGraphMousePlugin extends AbstractGraphMousePlugin implem
 		}
 	}
 
+        @Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
+        @Override
 	public void mouseExited(MouseEvent e) {
 	}
 
+        @Override
 	public void mousePressed(MouseEvent e) {
 	}
 
+        @Override
 	public void mouseReleased(MouseEvent e) {
 	}
 }

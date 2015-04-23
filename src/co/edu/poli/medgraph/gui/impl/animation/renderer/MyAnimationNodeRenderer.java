@@ -21,7 +21,7 @@ import java.util.WeakHashMap;
 
 public class MyAnimationNodeRenderer extends BasicVertexRenderer<INode, IEdge> {
 
-	private Map<INode, Animation<INode>> animations = new WeakHashMap<INode, Animation<INode>>();
+	private Map<INode, Animation<INode>> animations = new WeakHashMap<>();
 	
 	private Color colorOne = Color.white;
 	private Color pickedColorOne = Color.darkGray;
