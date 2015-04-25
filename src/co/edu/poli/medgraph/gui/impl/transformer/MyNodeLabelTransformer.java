@@ -6,6 +6,7 @@ import org.apache.commons.collections15.Transformer;
 
 public class MyNodeLabelTransformer implements Transformer<INode,String> {
 	
+        @Override
 	public String transform(INode v) {
 		return v.isIntermediate() ? null : v.toString();
 	}

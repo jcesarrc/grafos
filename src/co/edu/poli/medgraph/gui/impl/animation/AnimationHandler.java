@@ -33,7 +33,7 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
     private AlgorithmPanel ap;
     private boolean animationsDone = true;
 
-    private LinkedList<Animator> as = new LinkedList<Animator>();
+    private LinkedList<Animator> as = new LinkedList<>();
     private int step = -1;
 
     private MyAnimationEdgeRenderer edgeRenderer;
@@ -72,11 +72,13 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
         return enabled;
     }
 
+    @Override
     public void initialized(int maxSteps) {
         stopAnimations();
         vv.repaint();
     }
 
+    @Override
     public void reset() {
         stopAnimations();
         vv.repaint();
@@ -114,6 +116,7 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
         animationsDone = true;
     }
 
+    @Override
     public void stepChanged(int step, final DijkstraStepChanges changes) {
 
         stopAnimations();
@@ -124,9 +127,10 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
 
             final INode nextMin = changes.getNextMinimum();
 
-            List<Animator> startAnims = new LinkedList<Animator>();
+            List<Animator> startAnims = new LinkedList<>();
 
-            Animator a = null, b = null;
+            Animator a = null;
+            Animator b = null;
             for (final INode v : changes.getChangedNodes()) {
                 final IEdge newE = changes.getNewPredecessorEdge(v);
                 final IEdge oldE = changes.getOldPredecessorEdge(v);
@@ -137,20 +141,20 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
                 v.setAttribute(attr);
 
                 if (oldE != null) {
-                    b = addAnimation(a, delay, new NodeAndEdgeAnimator<IEdge>(new EdgeLineAnimation(v, true), oldE));
+                    b = addAnimation(a, delay, new NodeAndEdgeAnimator<>(new EdgeLineAnimation(v, true), oldE));
                     if (a == null) {
                         startAnims.add(b);
                     }
                     a = b;
                 }
 
-                b = addAnimation(a, delay, new NodeAndEdgeAnimator<IEdge>(new EdgeLineAnimation(v, false), newE));
+                b = addAnimation(a, delay, new NodeAndEdgeAnimator<>(new EdgeLineAnimation(v, false), newE));
                 if (a == null) {
                     startAnims.add(b);
                 }
                 a = b;
 
-                b = addAnimation(null, Animator.INFINITE, new NodeAndEdgeAnimator<INode>(new NodeShowAnimation(oldPaint), v));
+                b = addAnimation(null, Animator.INFINITE, new NodeAndEdgeAnimator<>(new NodeShowAnimation(oldPaint), v));
                 a.addTarget(new AnimatorTrigger(b, AnimatorTrigger.Action.STOP_AT_END));
                 startAnims.add(b);
                 a = b;
@@ -165,7 +169,7 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
                 TimingTarget tt = new TimingTargetAdapter() {
                     @Override
                     public void end() {
-                        Animator a = addAnimation(null, 300, new NodeAndEdgeAnimator<INode>(new NodeFlashAnimation(MyNodeFillPaintTransformer.VISITED, MyNodeFillPaintTransformer.SETTLED), nextMin));
+                        Animator a = addAnimation(null, 300, new NodeAndEdgeAnimator<>(new NodeFlashAnimation(MyNodeFillPaintTransformer.VISITED, MyNodeFillPaintTransformer.SETTLED), nextMin));
                         a.addTarget(new TimingTargetAdapter() {
                             @Override
                             public void end() {
@@ -195,10 +199,7 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
         this.step = step;
     }
 
-    /**
-     * Creates a new {@link Animation} that is started when the trigger
-     * animation (if given) has ended.
-     */
+    
     private Animator addAnimation(Animator trigger, int duration, TimingTarget t) {
         Animator a = new Animator(duration, t);
         a.setResolution(1000 / MAX_FPS);
@@ -211,7 +212,7 @@ public class AnimationHandler implements AlgorithmProgressListener<DijkstraStepC
 
     private class NodeAndEdgeAnimator<T> extends TimingTargetAdapter {
 
-        private List<Animation<T>> anims = new LinkedList<Animation<T>>();
+        private List<Animation<T>> anims = new LinkedList<>();
 
         public NodeAndEdgeAnimator(Animation<T> a, T e) {
             this(a, Collections.singletonList(e));

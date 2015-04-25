@@ -58,10 +58,12 @@ public class MyInfoOverlayGraphMousePlugin extends AbstractGraphMousePlugin impl
 
     }
 
+    @Override
     public void graphReplaced(IGraph graph, Transformer<INode, Point2D> layout) {
         this.graph = graph;
     }
 
+    @Override
     public void graphChanged() {
     }
 
@@ -72,6 +74,7 @@ public class MyInfoOverlayGraphMousePlugin extends AbstractGraphMousePlugin impl
         public InfoPaintable() {
         }
 
+        @Override
         public void paint(Graphics g) {
             final boolean algo = DijkstraAlgorithmManager.isAlgoRunning();
             String s = null;
@@ -212,12 +215,14 @@ public class MyInfoOverlayGraphMousePlugin extends AbstractGraphMousePlugin impl
             g.drawString(s2, X + (right ? 8 : 32), Y - 40 + 32);
         }
 
+        @Override
         public boolean useTransform() {
             return false;
         }
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public void mouseMoved(MouseEvent e) {
         final Point2D p = e.getPoint();
         final GraphElementAccessor<INode, IEdge> pickSupport = vv.getPickSupport();
@@ -246,6 +251,7 @@ public class MyInfoOverlayGraphMousePlugin extends AbstractGraphMousePlugin impl
 
     }
 
+    @Override
     public void mouseDragged(MouseEvent e) {
     }
 

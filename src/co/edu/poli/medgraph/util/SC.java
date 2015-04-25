@@ -14,7 +14,6 @@ import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 import org.jdesktop.application.Application;
@@ -39,9 +38,7 @@ public class SC {
             final T component = classT.newInstance();
             component.setName(text);
             return component;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;
@@ -83,6 +80,7 @@ public class SC {
             group.add(item);
         }
         item.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (!UIManager.getLookAndFeel().getClass().getCanonicalName().equals(className)) {

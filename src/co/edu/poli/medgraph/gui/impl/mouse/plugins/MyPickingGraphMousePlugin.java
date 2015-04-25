@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 /**
- * COPYRIGHT: CLASE BASADA EN EL CODIGO DE {@link PickingGraphMousePlugin}.
+ * COPYRIGHT: ESTA CLASE ESTA BASADA EN EL CODIGO DE {@link PickingGraphMousePlugin}.
  */
 public class MyPickingGraphMousePlugin<V, E> extends PickingGraphMousePlugin<V, E> {
 	

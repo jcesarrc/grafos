@@ -70,6 +70,7 @@ public class MyGraphMouse extends PluggableGraphMouse implements AlgorithmProgre
         loadPlugins();
         addAllPlugins();
         gp.addPropertyChangeListener("graphBackground", new PropertyChangeListener() {
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (MyGraphMouse.this.gp.isGraphBackground()) {
                     remove(scalingPlugin);
