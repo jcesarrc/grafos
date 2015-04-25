@@ -1,8 +1,9 @@
 package co.edu.poli.medgraph.grafo.impl;
 
+import co.edu.poli.medgraph.grafo.INode;
 import org.apache.commons.collections15.Factory;
 
-public class MyNodeFactory implements Factory<MyNode> {
+public class MyNodeFactory implements Factory<INode> {
 
     private int idCounter;
 

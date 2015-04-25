@@ -1,8 +1,9 @@
 package co.edu.poli.medgraph.grafo.impl;
 
+import co.edu.poli.medgraph.grafo.IEdge;
 import org.apache.commons.collections15.Factory;
 
-public class MyEdgeFactory implements Factory<MyEdge> {
+public class MyEdgeFactory implements Factory<IEdge> {
 
     private int counter = 1;
     private static MyEdgeFactory instance = new MyEdgeFactory();

@@ -15,7 +15,7 @@ public class MyTranslatingGraphMousePlugin extends TranslatingGraphMousePlugin {
         this.cursor = Cursor.getDefaultCursor();
     }
 
-    @Override
+    
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         if (!MyGraphMouse.isOverNode(e) || DijkstraAlgorithmManager.isAlgoRunning()) {
@@ -27,14 +27,14 @@ public class MyTranslatingGraphMousePlugin extends TranslatingGraphMousePlugin {
         }
     }
 
-    @Override
+    
     public void mouseDragged(MouseEvent e) {
         if (!inactive) {
             super.mouseDragged(e);
         }
     }
 
-    @Override
+    
     public void mouseReleased(MouseEvent e) {
         inactive = false;
         super.mouseReleased(e);
