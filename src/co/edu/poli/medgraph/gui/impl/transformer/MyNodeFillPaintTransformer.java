@@ -18,9 +18,9 @@ import org.apache.commons.collections15.Transformer;
 public class MyNodeFillPaintTransformer implements Transformer<INode, Paint>, GraphChangeListener {
 
     public static final Color NOT_VISITED = Color.GRAY;
-    public static final Color START_NODE = Color.CYAN;
-    public static final Color VISITED = Color.YELLOW;
-    public static final Color SETTLED = Color.GREEN;
+    public static final Color START_NODE = Color.MAGENTA;
+    public static final Color VISITED = Color.BLUE;
+    public static final Color SETTLED = Color.YELLOW;
 
     public static final Color CURRENTLY_SETTLED = Color.GREEN;
     public static final Color PATH_FOUND = VISITED;
