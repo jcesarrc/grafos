@@ -5,7 +5,6 @@ import co.edu.poli.medgraph.grafo.GraphManager;
 import co.edu.poli.medgraph.grafo.IEdge;
 import co.edu.poli.medgraph.grafo.IGraph;
 import co.edu.poli.medgraph.grafo.INode;
-import co.edu.poli.medgraph.grafo.impl.MyNode;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +19,7 @@ import java.util.Set;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.set.ListOrderedSet;
 
-public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>, GraphChangeListener {
+public class TSPAlgorithm implements GraphAlgorithm<DijkstraStepChanges>, GraphChangeListener {
 
     private static interface Step {
 
@@ -60,7 +59,7 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
 
     private static final boolean VERBOSIVE = false;
 
-    public DijkstraShortestPath() {
+    public TSPAlgorithm() {
         GraphManager.addGraphChangeListener(this);
     }
 
@@ -124,7 +123,11 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
         // calculate number of steps for algorithm and notify listeners
         final Set<INode> visited = new HashSet<INode>();
         visited.add(start);
-        updateMaxStep(getNumberOfConnectedNodes(visited, start));
+        int factorial = graph.getNumberOfNodes()-1;
+        for(int i=factorial;i==1;i--){
+            factorial*=i;
+        }
+        updateMaxStep(factorial);
         visited.clear();
         updateCurrentStep(null);
     }
@@ -467,66 +470,53 @@ public class DijkstraShortestPath implements GraphAlgorithm<DijkstraStepChanges>
     public void removeProgressListener(final AlgorithmProgressListener<DijkstraStepChanges> l) {
         listener.remove(l);
     }
-
-    public String calculateMinHamiltonPath() {
-        Integer[] nodeIdList = new Integer[graph.getNodes().size()];
+    
+    
+    public List calculateMinHamiltonPath(){
+        Integer[] nodeIdList = new Integer[graph.getNodes().size()+1];
         int i = 0;
-        int idStartNode = graph.getStart().getId();
-        for (INode v : graph.getNodes()) {
-            if (v.getId() != idStartNode) {
-                nodeIdList[i++] = Integer.valueOf(v.getId());
-            }
+        int idStartNode = graph.getStart().getId(); 
+        for(INode v: graph.getNodes()){
+            if(v.getId()!= idStartNode )
+                nodeIdList[i] = v.getId();
         }
         
-            
-        
         List<List<Integer>> permutations = Permute.permute(nodeIdList);
-
+        
         double minPath = Double.POSITIVE_INFINITY;
         List<Integer> favoritePath = new ArrayList<>();
         
-        for (List list : permutations) {
+        
+        for(List list: permutations){
             INode node0 = graph.getStart();
             List<Integer> hamiltonPath = (ArrayList<Integer>) list;
             Double dst = 0d;
-            for (Integer iNode : hamiltonPath) {
-                if(iNode!=null){
-                    INode nodeStep = queryNode(iNode);
-                    dst += getDistance(node0) + getDistance(nodeStep);
-                    node0 = nodeStep;
-                    System.out.println(dst);
-                }
+            for(Integer iNode: hamiltonPath){
+                INode nodeStep = queryNode(iNode);
+                dst += getDistance(node0) +  getDistance(nodeStep);
+                node0 = nodeStep;
             }
-            dst += getDistance(node0) + getDistance(graph.getStart());
-            if (dst < minPath) {
-                minPath = dst;
+            dst += getDistance(node0) +  getDistance(graph.getStart());
+            if(dst<minPath) {
+                minPath=dst;
                 favoritePath = hamiltonPath;
             }
-
+            
         }
         
-        String tspSolution = graph.getStart().getId() + " -> ";
-        for(Integer itemInPath: favoritePath){
-            if((itemInPath!=null)){
-                tspSolution+= itemInPath + " -> ";
-            }
-        }
-        tspSolution += graph.getStart().getId();
-        tspSolution += "\nLongitud del recorrido: " + minPath + "\n" ;
-        System.out.println(tspSolution);
-        return tspSolution;
-
+        return favoritePath;
+        
+        
     }
-
-    private INode queryNode(int idNode) {
+    
+    private INode queryNode(int idNode){
         
-        for (INode v : graph.getNodes()) {
-            if (v.getId() == idNode) {
+        for(INode v: graph.getNodes()){
+            if(v.getId()!= idNode )
                 return v;
-            }
         }
-        return graph.getStart();
-
+        return null;
+        
     }
 
 }

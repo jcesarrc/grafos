@@ -40,6 +40,11 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Hashtable;
 
 import javax.swing.BorderFactory;
@@ -48,6 +53,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -88,10 +94,9 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 	private final JSlider delaySlider;
 	private final ResourceMap r;
 	private RunTask runTask = null;
-	private final JButton playPauseButton, startStopButton;
+	private final JButton playPauseButton, startStopButton, exportButton;
 	private boolean first = true;
 	private final JXPanel migPanel;
-	
 	private AnimationHandler ah = null;
 	
 	private int maxSteps = 0;
@@ -100,7 +105,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 	private JCheckBox enableAnims;
 
 	@Resource
-	private Icon playIcon, pauseIcon;
+	private Icon playIcon, pauseIcon, exportIcon;
 
 	private JTextArea stepInfo = null;
 	private boolean canStepForward, canStepBackward, startable, stoppable;
@@ -112,7 +117,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		r = SC.getResourceMap(AlgorithmPanel.class);
 		algo = new DijkstraShortestPath();
 
-		//LocaleManager.addLocaleChangeListener(this);
+		
 		GraphManager.addGraphChangeListener(this);
 		DijkstraAlgorithmManager.addAlgorithmProgressListener(this);
 		DijkstraAlgorithmManager.setAlgorithm(algo);
@@ -136,7 +141,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		});
 		
 		/*
-		 * LEGEND
+		 * Descripcion
 		 */		
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "legend"), "span, growx");
 		final JPanel legendPanel = new JPanel(new MigLayout((DEBUG ? "debug, " : "") + "insets 0", "[left, center, left]"));
@@ -159,7 +164,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		migPanel.add(new JScrollPane(stepInfo = SC.newComponent(JTextArea.class, "stepInfoArea")), "span, w 280, grow, push");
 
 		/*
-		 * DELAY SLIDER
+		 * Manejar velocidad de la simulacion
 		 */
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "execSpeed"), "span, growx");
 		migPanel.add(SC.newComponent(JLabel.class, "timeIconLabel"), "left");
@@ -189,7 +194,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 
 		
 		/*
-		 * PROGRESS BAR
+		 * Barra de progreso
 		 */
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "progress"), "span, growx");
 		migPanel.add(SC.newComponent(JLabel.class, "progressIconLabel"), "left");
@@ -202,10 +207,11 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		});
 
 		/*
-		 * ALGO CONTROL BUTTONS
+		 * Botones de control
 		 */
 		migPanel.add(SC.newComponent(JXTitledSeparator.class, "controls"), "span, growx");
 //		migPanel.add(createButton("stop"), "split, span, gap 5");
+                migPanel.add(exportButton = createControlButton("export"), "split, span, gap 5");
 		migPanel.add(playPauseButton = createControlButton("playPause"), "split, span, gap 5");
 		migPanel.add(createControlButton("stepFirst"), "gap 5, gapleft 20");
 		migPanel.add(createControlButton("stepBackward"), "gap 5");
@@ -330,6 +336,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		progressBar.setString("");
 		stepInfo.setText(null);
 		playPauseButton.setIcon(playIcon);
+                exportButton.setIcon(exportIcon);
 		setCanStepBackward(false);
 		setCanStepForward(false);
 	}
@@ -410,7 +417,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 	
 	@Action(enabledProperty = "startable")
 	public synchronized void startStopAlgo() {
-		// disable button while animation is running
+		// desactivar boton cuando el algoritmo esta corriendo
 		setStartable(false);
 		Animator a = new Animator(150, new TimingTargetAdapter() {
 			@Override
@@ -446,7 +453,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 	public Task<Void, Void> playPause() {
 		setStoppable(true);
 
-		// start again if finished
+		// iniciar de nuevo si ya finalizo
 		if (currentStep == maxSteps)
 			stepFirst();
 
@@ -478,8 +485,26 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 		algo.run();
 	}
 
+        @Action
+	public void export() throws FileNotFoundException, IOException {
+		String txt = stepInfo.getText();
+                final JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(this);
+                
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File myFile = fc.getSelectedFile();
+            
+                //File myFile = new File(System.getProperty("user.dir")+
+                //        System.getProperty("file.separator") + "export.txt");
+                myFile.createNewFile();
+                FileOutputStream fo = new FileOutputStream(myFile);
+                System.out.println("Escribiendo a archivo... " + myFile.getAbsolutePath());
+                PrintStream out = new PrintStream(fo);
+                out.print(txt);
+            }
+        }
 
-	// LISTENER METHODS
+	// Metodos para escuchr los cambios y mostrarlos en la gui
 
 	private void updateProgressBar() {
 		progressBar.setValue(currentStep == -1 ? 0 : currentStep);
@@ -533,6 +558,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 				stepInfo.append(String.format(fs, changes.getNextMinimum(), changes.getNextMinimumDistance()));
 			}
 		} else {
+                        stepInfo.append("\nRuta optima\n" +  algo.calculateMinHamiltonPath() + "\n");
 			stepInfo.append(SC.t("algorithm_finished"));
 			if (changes.getMinimum() != algo.getStart())
 				changes.getMinimum().setAttribute(INode.Attribute.SETTLED);
@@ -553,7 +579,7 @@ public class AlgorithmPanel extends JPanel implements AlgorithmProgressListener<
 	public void reset() {
 	}
 
-	// PROPERTIES FOR ACTIONS
+	// Propieddes para las accciones
 
 	public void setCanStepBackward(boolean canStepBackward) {
 		final boolean oldValue = this.canStepBackward;

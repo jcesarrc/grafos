@@ -5,7 +5,8 @@ import java.util.Set;
 
 public class DijkstraAlgorithmManager {
 
-    private static final Set<AlgorithmProgressListener<DijkstraStepChanges>> listeners = new HashSet<AlgorithmProgressListener<DijkstraStepChanges>>();
+    private static final Set<AlgorithmProgressListener<DijkstraStepChanges>> listeners =
+            new HashSet<AlgorithmProgressListener<DijkstraStepChanges>>();
     private static DijkstraShortestPath algo;
     private static AlgorithmProgressListener<DijkstraStepChanges> lis;
     private static boolean algoRunning = false;
